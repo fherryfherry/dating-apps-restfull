@@ -1,0 +1,14 @@
+app_name: "BookStore"
+log_level: "debug"
+server:
+  port: 8085
+  host: "localhost"
+database:
+  host: "127.0.0.1:3306"
+  user: "root"
+  password: ""
+  dbname: "dating_apps"
+jwt:
+  secret: "secret123456"
+default_level: "FREE"
+base_url_upload: "http://localhost:8085"
