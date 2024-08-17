@@ -19,7 +19,7 @@ by Ferry Ariawan
 I assume you have GO and mySQL server environment on your computer.
 
 ### Installation
-1. Import the database named `apps_dating.sql` into your mySQL local server
+1. Import the database named `dating_apps.sql` into your mySQL local server
 1. Config the database credential on `config.yaml` at the root directory
 1. Update dependencies by run command `go mod tidy`
 
