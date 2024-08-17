@@ -1,0 +1,368 @@
+{
+	"info": {
+		"_postman_id": "f862a03d-a686-4b90-8b2e-143e6c726163",
+		"name": "Dating Apps",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21779262"
+	},
+	"item": [
+		{
+			"name": "Registration",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\":\"Joni\",\n    \"last_name\":\"Jona\",\n    \"email\":\"join1@example.com\",\n    \"password\":\"123456\",\n    \"bio\":\"Hey there\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/registration",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"registration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Set token\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.collectionVariables.set(\"TOKEN\", jsonData.data.token);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"join1@example.com\",\n    \"password\":\"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/login",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Profile Picture",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/Users/ferry/Downloads/WhatsApp_Image_2024-08-05_at_18.01.28-removebg-preview.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/member/update-profile-picture",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"member",
+						"update-profile-picture"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "My Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/member/profile",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"member",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Dating Candidate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Set Customer UUID Swipe\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.collectionVariables.set(\"SWIPE_CUST_UUID\", jsonData.data.customer_uuid);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/member/dating/candidate",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"member",
+						"dating",
+						"candidate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Swipe Right",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"swipe_type\":\"LIKE\",\n    \"swipe_customer_uuid\": \"{{SWIPE_CUST_UUID}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/member/dating/swipe",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"member",
+						"dating",
+						"swipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Package List",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/member/package/list",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"member",
+						"package",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Purchase Package",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"package_code\":\"PREMIUM\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/member/package/purchase",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"member",
+						"package",
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:8085",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "SWIPE_CUST_UUID",
+			"value": ""
+		}
+	]
+}
